@@ -1,11 +1,30 @@
-python-dotenv
-langchain
-langchain_openai
-langchain_community
-langchain-huggingface
-langchain-google-genai
+# Giao diện web
 streamlit
+
+# Quản lý biến môi trường
+python-dotenv
+
+# LangChain core
+langchain
+langchain-community
+langchain-google-genai
+langchain-huggingface
+
+# Vectorstore FAISS
 faiss-cpu
+
+# Xử lý embedding
 sentence-transformers
+transformers
+
+# Xử lý tài liệu các định dạng
 pypdf
 docx2txt
+unstructured[all]    # Cho xử lý Excel, PowerPoint, v.v.
+
+# Thư viện phụ thuộc Google Gemini
+google-generativeai==0.8.5
+google-ai-generativelanguage==0.6.15
+
+# (Tùy chọn) Hiển thị tiến trình
+tqdm

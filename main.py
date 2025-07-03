@@ -82,9 +82,12 @@ uploaded_files = st.file_uploader(
 if uploaded_files:
     documents = []
     for uploaded_file in uploaded_files:
-        file_path = f"{working_dir}/upload/{uploaded_file.name}"
+        upload_dir = os.path.join(working_dir, "upload")
+        os.makedirs(upload_dir, exist_ok=True)  # ✅ Tạo thư mục upload nếu chưa tồn tại
 
-        if os.path.exists(file_path):#xóa tệp nếu nó tồn tại
+        file_path = os.path.join(upload_dir, uploaded_file.name)
+
+        if os.path.exists(file_path):  # Xoá tệp nếu đã tồn tại
             os.remove(file_path)
 
         with open(file_path, "wb") as f:
