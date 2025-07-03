@@ -112,13 +112,16 @@ for message in st.session_state.chat_history:
 user_input = st.chat_input("Ask Llama...")
 
 if user_input:
-    st.session_state.chat_history.append({"role": "user", "content": user_input})
+    if "conversation_chain" not in st.session_state:
+        st.error("⚠️ Hệ thống chưa sẵn sàng. Vui lòng tải tài liệu trước.")
+    else:
+        st.session_state.chat_history.append({"role": "user", "content": user_input})
 
-    with st.chat_message("user"):
-        st.markdown(user_input)
+        with st.chat_message("user"):
+            st.markdown(user_input)
 
-    with st.chat_message("assistant"):
-        response = st.session_state.conversation_chain({"question": user_input})
-        assistant_response = response["answer"]
-        st.markdown(assistant_response)
-        st.session_state.chat_history.append({"role": "assistant", "content": assistant_response})
+        with st.chat_message("assistant"):
+            response = st.session_state.conversation_chain({"question": user_input})
+            assistant_response = response["answer"]
+            st.markdown(assistant_response)
+            st.session_state.chat_history.append({"role": "assistant", "content": assistant_response})
