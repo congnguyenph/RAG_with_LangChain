@@ -68,10 +68,14 @@ def load_document(file_path):
     return loader.load()
 
 def setup_vectorstore(documents):
-    embeddings = HuggingFaceEmbeddings()
+    embeddings = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2",  # nhẹ, nhanh
+        model_kwargs={"device": "cpu"}
+    )
     splitter = RecursiveCharacterTextSplitter(chunk_size=1200, chunk_overlap=200)
     chunks = splitter.split_documents(documents)
     return FAISS.from_documents(chunks, embeddings)
+
 
 def create_chain(vectorstore):
     llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
