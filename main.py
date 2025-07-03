@@ -113,16 +113,20 @@ if st.session_state.logged_in and st.session_state.username == "admin":
                     os.remove(file_path)
             except PermissionError:
                 st.warning(f"⚠️ Không thể ghi đè file `{uploaded_file.name}`. Hãy đóng mọi chương trình đang mở file này.")
+                continue
 
             with open(file_path, "wb") as f:
                 f.write(uploaded_file.getbuffer())
+
+            st.success(f"✅ File `{uploaded_file.name}` đã được tải lên thành công!")
 
             documents.extend(load_document(file_path))
 
         # Tạo vectorstore và chain
         st.session_state.vectorstore = setup_vectorstore(documents)
         st.session_state.conversation_chain = create_chain(st.session_state.vectorstore)
-        st.success("✅ Đã nạp tài liệu thành công!")
+        st.success("✅ Đã nạp toàn bộ tài liệu thành công!")
+
 
 # =========================
 # 5. Hiển thị lịch sử chat
